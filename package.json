@@ -17,7 +17,8 @@
   "homepage": "https://github.com/thlorenz/browserify-swap",
   "dependencies": {
     "find-parent-dir": "~0.1.0",
-    "through2": "~0.2.3"
+    "through2": "~0.2.3",
+    "resolve": "~0.6.1"
   },
   "devDependencies": {
     "nave": "~0.4.3",

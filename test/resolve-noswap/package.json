@@ -1,0 +1,6 @@
+{
+  "name": "resolve-noswap",
+  "version": "0.0.0",
+  "description": "Has no swap config.",
+  "main": "index.js"
+}
