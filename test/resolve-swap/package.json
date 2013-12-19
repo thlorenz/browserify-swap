@@ -5,12 +5,12 @@
   "main": "index.js",
   "browserify-swap": {
     "dev": {
-      "/node_modules\/hyperwatch\\.js$/": "./swap/some-hyperwatch-swap.js",
-      "util$/": "myutil"
+      "/.*node_modules\/hyperwatch\\.js$/": "./swap/some-hyperwatch-swap.js",
+      "/util$/": "myutil"
     },
     "test": {
-      "/node_modules\/hyperwatch\\.js$/": "./swap/some-hyperwatch-swap.js",
-      "util$/": "test-util"
+      "/.*node_modules\/hyperwatch\\.js$/": "./swap/some-hyperwatch-swap.js",
+      "/util$/": "test-util"
     }
   }
 }

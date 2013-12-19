@@ -23,7 +23,7 @@
   "devDependencies": {
     "nave": "~0.4.3",
     "tap": "~0.4.6",
-    "browserify": "~3.5.0"
+    "browserify": "~3.11.1"
   },
   "keywords": [],
   "author": {
