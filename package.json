@@ -1,7 +1,7 @@
 {
-  "name": "browserify-stub",
+  "name": "browserify-swap",
   "version": "0.0.0",
-  "description": "A transform that stubs out modules according to a config in your package.json selected via an environment variable.",
+  "description": "A transform that swaps out modules according to a config in your package.json selected via an environment variable.",
   "main": "index.js",
   "scripts": {
     "test-main": "tap test/*.js",
@@ -12,9 +12,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thlorenz/browserify-stub.git"
+    "url": "git://github.com/thlorenz/browserify-swap.git"
   },
-  "homepage": "https://github.com/thlorenz/browserify-stub",
+  "homepage": "https://github.com/thlorenz/browserify-swap",
   "dependencies": {
     "find-parent-dir": "~0.1.0",
     "through2": "~0.2.3"
@@ -32,7 +32,7 @@
   },
   "license": {
     "type": "MIT",
-    "url": "https://github.com/thlorenz/browserify-stub/blob/master/LICENSE"
+    "url": "https://github.com/thlorenz/browserify-swap/blob/master/LICENSE"
   },
   "engine": {
     "node": ">=0.6"

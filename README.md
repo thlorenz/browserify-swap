@@ -1,7 +1,8 @@
-# browserify-stub
-[![build status](https://secure.travis-ci.org/thlorenz/browserify-stub.png)](http://travis-ci.org/thlorenz/browserify-stub)
+# browserify-swap [![build status](https://secure.travis-ci.org/thlorenz/browserify-swap.png)](http://travis-ci.org/thlorenz/browserify-swap)
 
-A transform that stubs out modules according to a config in your package.json selected via an environment variable.
+**swap/swäp/** - *an act of exchanging one thing for another*
+
+A transform that swaps out modules according to a config in your package.json selected via an environment variable.
 
 ```js
 // TODO
@@ -12,7 +13,7 @@ A transform that stubs out modules according to a config in your package.json se
 Nix, Nada, Nichevo, Nothing --> go away!
 ## Installation
 
-    npm install browserify-stub
+    npm install browserify-swap
 
 ## API
 
