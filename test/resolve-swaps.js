@@ -24,10 +24,9 @@ test('\nwhen resolving swaps from a dir with package.json that has swaps', funct
         res
       , { dev:
           { '.*node_modules/hyperwatch\\.js$': dir + '/swap/some-hyperwatch-swap.js',
-            'util$': dir + '/node_modules/myutil/index.js' },
+            'util.js$': dir + '/node_modules/myutil/index.js' },
           test:
-          { '.*node_modules/hyperwatch\\.js$': dir + '/swap/some-hyperwatch-swap.js',
-            'util$': dir + '/node_modules/test-util/index.js' } }
+          { 'util.js$': dir + '/node_modules/test-util/index.js' } }
       , 'returns swap config with full path of local files and node_modules resolved'
     )
     t.end()
@@ -44,10 +43,9 @@ test('\nwhen resolving swaps from a dir right below package.json that has swaps'
         res
       , { dev:
           { '.*node_modules/hyperwatch\\.js$': root + '/swap/some-hyperwatch-swap.js',
-            'util$': root + '/node_modules/myutil/index.js' },
+            'util.js$': root + '/node_modules/myutil/index.js' },
           test:
-          { '.*node_modules/hyperwatch\\.js$': root + '/swap/some-hyperwatch-swap.js',
-            'util$': root + '/node_modules/test-util/index.js' } }
+          { 'util.js$': root + '/node_modules/test-util/index.js' } }
       , 'returns swap config with full path of local files and node_modules resolved'
     )
     t.end()

@@ -6,11 +6,10 @@
   "browserify-swap": {
     "dev": {
       ".*node_modules\/hyperwatch\\.js$": "./swap/some-hyperwatch-swap.js",
-      "util$": "myutil"
+      "util.js$": "myutil"
     },
     "test": {
-      ".*node_modules\/hyperwatch\\.js$": "./swap/some-hyperwatch-swap.js",
-      "util$": "test-util"
+      "util.js$": "test-util"
     }
   }
 }

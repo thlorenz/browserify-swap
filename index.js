@@ -21,10 +21,9 @@ function swap(config, env, file) {
 
   var matches = Object.keys(swaps)
     .filter(function (k) { 
-      // remove leading and trailing '/' since creating a RegExp will add those anyhow
-      // basically we want to support two formats, just a simple string or a string including '/'s
-      // since that makes clear to people reading the package.json that this is a regex
-      // We will also only document the format including the '/'
+      // Remove leading and trailing '/' since creating a RegExp will add those anyhow.
+      // We want to support the /../ format as well just a simple string without the /s.
+      // We will only document the format without the '/'.
       var stringified = k.replace(/^\/|\/$/g,'');
       var regex = new RegExp(stringified);
       return regex.test(file);
@@ -36,7 +35,7 @@ function swap(config, env, file) {
 }
 
 var go = module.exports = function (file) {
-  var env = process.env.BROWSERIFY_SWAP
+  var env = process.env.BROWSERIFYSWAP_ENV
     , data = ''
     , swapFile;
 
@@ -54,6 +53,7 @@ var go = module.exports = function (file) {
 
   function write(d, enc, cb) { data += d; cb(); }
   function end(cb) {
+    /*jshint validthis:true */ 
     var self = this;
 
     // if config was cached we already resolved the swapFile if we got here
@@ -80,7 +80,7 @@ if (!module.parent && typeof window === 'undefined') {
   process.cwd = function () {
     return __dirname + '/test/resolve-swap';
   }
-  process.env.BROWSERIFY_SWAP = 'dev';
+  process.env.BROWSERIFYSWAP_ENV = 'dev';
 
   var file = 'node_modules/hyperwatch.js'
     , tx = go(file);
