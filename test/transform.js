@@ -5,6 +5,8 @@ var test = require('tap').test
   , applyTransform = require('apply-transform')
   , swap = require('../')
 
+var process_cwd = process.cwd;
+
 test('\nwhen current dir has package.json with swap config', function (t) {
   var dir = __dirname + '/resolve-swap'
   process.cwd = function () { return dir; }
@@ -57,5 +59,6 @@ test('\nwhen current dir has package.json with swap config', function (t) {
     });
   })
 
+  process.cwd = process_cwd;
   t.end()
 })

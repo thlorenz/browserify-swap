@@ -2,6 +2,7 @@
 
 var through = require('through2')
   , resolveSwaps = require('./lib/resolve-swaps')
+  , debug = require('./lib/debug')
   , cachedConfig;
 
 function inspect(obj, depth) {
@@ -56,8 +57,10 @@ var go = module.exports = function (file) {
     /*jshint validthis:true */ 
     var self = this;
 
+
     // if config was cached we already resolved the swapFile if we got here
     if (swapFile) {
+      debug.inspect({ file: file, swapFile: swapFile });
       self.push(requireSwap(swapFile));
       return cb();
     }
@@ -67,7 +70,10 @@ var go = module.exports = function (file) {
       cachedConfig = config || -1;
       if (err) return cb(err);
 
+      debug.inspect({ swaps: config, env: env });
       swapFile = swap(config, env, file);
+      debug.inspect({ file: file, swapFile: swapFile });
+
       var src = swapFile ? requireSwap(swapFile) : data;
       self.push(src);
       cb();

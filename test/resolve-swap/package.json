@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Has swap config.",
   "main": "index.js",
+  "browserify": {
+    "transform": [ "browserify-swap" ]
+  },
   "browserify-swap": {
     "dev": {
       ".*node_modules\/hyperwatch\\.js$": "./swap/some-hyperwatch-swap.js",
