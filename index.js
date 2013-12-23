@@ -43,14 +43,15 @@ function swap(config, env, file) {
 var go = module.exports = 
 
 /**
- * Looks up swaps specified for the given file in the environment specified via `BROWSERIFYSWAP_ENV`
+ * Looks up browserify_swap configuratios specified for the given file in the environment specified via `BROWSERIFYSWAP_ENV`.
+ *
  * If found the file content is replaced with a require statement to the file to swap in for the original.
  * Otherwise the file's content is just piped through.
  * 
  * @name browserifySwap
  * @function
  * @param {String} file full path to file being transformed
- * @return {TransformStream} into which `browserify` will pipe the original content of the file
+ * @return {TransformStream} transform stream into which `browserify` will pipe the original content of the file
  */
 function browserifySwap(file) {
   var env = process.env.BROWSERIFYSWAP_ENV

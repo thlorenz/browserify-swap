@@ -23,6 +23,8 @@ A transform that swaps out modules according to a config in your package.json se
 }
 ```
 
+**Note:** each file matcher (i.e. `'util.js$'`) is a regular expression
+
 ```sh
 BROWSERIFYSWAP_ENV='dev' browserify . -o bundle.js
 ```
@@ -50,8 +52,8 @@ BROWSERIFYSWAP_ENV='dev' browserify . -o bundle.js
 </dt>
 <dd>
 <div class="description">
-<p>Looks up swaps specified for the given file in the environment specified via <code>BROWSERIFYSWAP_ENV</code>
-If found the file content is replaced with a require statement to the file to swap in for the original.
+<p>Looks up browserify_swap configuratios specified for the given file in the environment specified via <code>BROWSERIFYSWAP_ENV</code>.</p>
+<p>If found the file content is replaced with a require statement to the file to swap in for the original.
 Otherwise the file's content is just piped through.</p>
 </div>
 <h5>Parameters:</h5>
@@ -85,7 +87,7 @@ Otherwise the file's content is just piped through.</p>
 </dl>
 <h5>Returns:</h5>
 <div class="param-desc">
-<p>into which <code>browserify</code> will pipe the original content of the file</p>
+<p>transform stream into which <code>browserify</code> will pipe the original content of the file</p>
 </div>
 <dl>
 <dt>
