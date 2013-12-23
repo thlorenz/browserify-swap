@@ -12,7 +12,11 @@ var root = process.env.BROWSERIFYSWAP_ROOT || process.cwd();
 // So whenever this transform is found in the root package, browserify will load it, which makes it
 // inject itself into all dependencies, and thus gets called for all of these as well.
 debug('viralifying', root);
-viralify.sync(root, 'browserify-swap', true);
+try { 
+  viralify.sync(root, 'browserify-swap', true);
+} catch (err) {
+  debug(err.stack);
+}
 
 function requireSwap(swapFileName) {
   return 'module.exports = require(\'' + swapFileName + '\');'
