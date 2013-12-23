@@ -2,7 +2,7 @@
 
 **swap/swäp/** - *an act of exchanging one thing for another*
 
-A transform that swaps out modules according to a config in your package.json selected via an environment variable.
+A transform that swaps out modules according to a config in your `package.json` selected via an environment variable.
 
 #### package.json
 

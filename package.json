@@ -29,7 +29,7 @@
     "cpr": "~0.1.1",
     "browserify": "~3.14.1"
   },
-  "keywords": [],
+  "keywords": [ "browserify", "transform", "swap", "stub", "mock", "substitute", "test", "development" ],
   "author": {
     "name": "Thorsten Lorenz",
     "email": "thlorenz@gmx.de",
