@@ -8,7 +8,7 @@
   },
   "browserify-swap": {
     "dev": {
-      ".*node_modules\/hyperwatch\\.js$": "./swap/some-hyperwatch-swap.js",
+      ".*node_modules\/hyperwatch\/\\S+\\.js$": "./swap/some-hyperwatch-swap.js",
       "util.js$": "myutil"
     },
     "test": {

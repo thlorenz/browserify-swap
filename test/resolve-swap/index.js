@@ -1,16 +1,16 @@
 'use strict';
 
 // swapped nowhere
-var path = require('path');
+var config = require('./config');
 
 // swapped in 'dev' only
 var hyperwatch = require('hyperwatch');
 
 // swapped in 'dev' and 'test'
-var util = require('util');
+var util = require('./util');
 
 module.exports = {
-    path       :  path
+    config     :  config
   , hyperwatch :  hyperwatch
   , util       :  util
 }

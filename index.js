@@ -1,13 +1,23 @@
 'use strict';
 
-var through = require('through2')
-  , resolveSwaps = require('./lib/resolve-swaps')
-  , debug = require('./lib/debug')
-  , cachedConfig;
+var through      =  require('through2')
+  , resolveSwaps =  require('./lib/resolve-swaps')
+  , debug        =  require('./lib/debug')
+  , viralify     =  require('viralify')
+  , cachedConfig
 
 function inspect(obj, depth) {
   console.error(require('util').inspect(obj, false, depth || 5, true));
 }
+
+var root = process.env.BROWSERIFYSWAP_ROOT || process.cwd();
+
+debug('viralifying', root);
+
+// viralify needs to only run once, instead of for every file and it needs to happen before any files are transformed.
+// So whenever this transform is found in the root package, browserify will load it, which makes it
+// inject itself into all dependencies, and thus gets called for all of these as well.
+viralify.sync(root, 'browserify-swap', true);
 
 function requireSwap(swapFileName) {
   return 'module.exports = require(\'' + swapFileName + '\');'
@@ -57,7 +67,6 @@ var go = module.exports = function (file) {
     /*jshint validthis:true */ 
     var self = this;
 
-
     // if config was cached we already resolved the swapFile if we got here
     if (swapFile) {
       debug.inspect({ file: file, swapFile: swapFile });
@@ -65,7 +74,8 @@ var go = module.exports = function (file) {
       return cb();
     }
 
-    resolveSwaps(process.cwd(), function (err, config) {
+    // we should only get here the very first time that this transform is invoked
+    resolveSwaps(root, function (err, config) {
       // signal with -1 that we already tried to resolve a swap config but didn't find any
       cachedConfig = config || -1;
       if (err) return cb(err);
@@ -83,9 +93,7 @@ var go = module.exports = function (file) {
 
 // Test
 if (!module.parent && typeof window === 'undefined') {
-  process.cwd = function () {
-    return __dirname + '/test/resolve-swap';
-  }
+  process.env.BROWSERIFYSWAP_ROOT = __dirname + '/test/resolve-swap-copy/';
   process.env.BROWSERIFYSWAP_ENV = 'dev';
 
   var file = 'node_modules/hyperwatch.js'
@@ -94,6 +102,4 @@ if (!module.parent && typeof window === 'undefined') {
   require('fs').createReadStream(__filename)
     .pipe(tx)
     .pipe(process.stdout);
-    
-
 }
