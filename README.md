@@ -4,13 +4,29 @@
 
 A transform that swaps out modules according to a config in your package.json selected via an environment variable.
 
-```js
-// TODO
+#### package.json
+
+```json
+{
+  "browserify": {
+    "transform": [ "browserify-swap" ]
+  },
+  "browserify-swap": {
+    "dev": {
+      ".*node_modules\/hyperwatch\/\\S+\\.js$": "./swap/some-hyperwatch-swap.js",
+      "util.js$": "myutil"
+    },
+    "test": {
+      "util.js$": "test-util"
+    }
+  }
+}
 ```
 
-## Status
+```sh
+BROWSERIFYSWAP_ENV='dev' browserify . -o bundle.js
+```
 
-Nix, Nada, Nichevo, Nothing --> go away!
 ## Installation
 
     npm install browserify-swap

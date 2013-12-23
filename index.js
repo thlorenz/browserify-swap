@@ -6,17 +6,12 @@ var through      =  require('through2')
   , viralify     =  require('viralify')
   , cachedConfig
 
-function inspect(obj, depth) {
-  console.error(require('util').inspect(obj, false, depth || 5, true));
-}
-
 var root = process.env.BROWSERIFYSWAP_ROOT || process.cwd();
-
-debug('viralifying', root);
 
 // viralify needs to only run once, instead of for every file and it needs to happen before any files are transformed.
 // So whenever this transform is found in the root package, browserify will load it, which makes it
 // inject itself into all dependencies, and thus gets called for all of these as well.
+debug('viralifying', root);
 viralify.sync(root, 'browserify-swap', true);
 
 function requireSwap(swapFileName) {
@@ -45,7 +40,19 @@ function swap(config, env, file) {
   return matches[0];
 }
 
-var go = module.exports = function (file) {
+var go = module.exports = 
+
+/**
+ * Looks up swaps specified for the given file in the environment specified via `BROWSERIFYSWAP_ENV`
+ * If found the file content is replaced with a require statement to the file to swap in for the original.
+ * Otherwise the file's content is just piped through.
+ * 
+ * @name browserifySwap
+ * @function
+ * @param {String} file full path to file being transformed
+ * @return {TransformStream} into which `browserify` will pipe the original content of the file
+ */
+function browserifySwap(file) {
   var env = process.env.BROWSERIFYSWAP_ENV
     , data = ''
     , swapFile;
@@ -89,17 +96,4 @@ var go = module.exports = function (file) {
       cb();
     });
   }
-}
-
-// Test
-if (!module.parent && typeof window === 'undefined') {
-  process.env.BROWSERIFYSWAP_ROOT = __dirname + '/test/resolve-swap-copy/';
-  process.env.BROWSERIFYSWAP_ENV = 'dev';
-
-  var file = 'node_modules/hyperwatch.js'
-    , tx = go(file);
-
-  require('fs').createReadStream(__filename)
-    .pipe(tx)
-    .pipe(process.stdout);
 }
