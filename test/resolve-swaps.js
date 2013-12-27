@@ -11,7 +11,7 @@ test('\nwhen resolving swaps from a dir with package.json that has no swaps', fu
   var dir = __dirname + '/resolve-noswap';
   resolve(dir, function (err, res) {
     if (err) return (t.fail(err), t.end());
-    t.notOk(res, 'returns nothing')
+    t.notOk(res.swaps, 'returns no swaps')
     t.end()
   });
 })
@@ -21,7 +21,7 @@ test('\nwhen resolving swaps from a dir with package.json that has swaps', funct
   resolve(dir, function (err, res) {
     if (err) return (t.fail(err), t.end());
     t.deepEqual(
-        res
+        res.swaps
       , { dev:
           { '.*node_modules/hyperwatch/\\S+\\.js$': dir + '/swap/some-hyperwatch-swap.js',
             'util.js$': dir + '/node_modules/myutil/index.js' },
@@ -39,7 +39,7 @@ test('\nwhen resolving swaps from a dir right below package.json that has swaps'
   resolve(dir, function (err, res) {
     if (err) return (t.fail(err), t.end());
     t.deepEqual(
-          res
+          res.swaps
         , { dev:
             { '.*node_modules/hyperwatch/\\S+\\.js$': root + '/swap/some-hyperwatch-swap.js',
               'util.js$': root + '/node_modules/myutil/index.js' },

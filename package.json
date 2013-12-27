@@ -19,7 +19,7 @@
     "find-parent-dir": "~0.1.0",
     "through2": "~0.2.3",
     "resolve": "~0.6.1",
-    "viralify": "~0.3.1"
+    "viralify": "~0.4.1"
   },
   "devDependencies": {
     "nave": "~0.4.3",

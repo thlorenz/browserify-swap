@@ -12,6 +12,7 @@ A transform that swaps out modules according to a config in your `package.json` 
     "transform": [ "browserify-swap" ]
   },
   "browserify-swap": {
+    "@packages": [ "hyperwatch" ],
     "dev": {
       ".*node_modules\/hyperwatch\/\\S+\\.js$": "./swap/some-hyperwatch-swap.js",
       "util.js$": "myutil"
@@ -23,7 +24,9 @@ A transform that swaps out modules according to a config in your `package.json` 
 }
 ```
 
-**Note:** each file matcher (i.e. `'util.js$'`) is a regular expression
+- each file matcher (i.e. `'util.js$'`) is a regular expression
+- in order to swap files of dependencies the `browserify-swap` transform needs to be injected into its package,
+  therefore indicate those packages via the `@packages` array
 
 ```sh
 BROWSERIFYSWAP_ENV='dev' browserify . -o bundle.js

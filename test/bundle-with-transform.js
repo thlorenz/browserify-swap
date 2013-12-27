@@ -14,6 +14,8 @@ var dir = copy;
 // simulate we are running browserify from the resolve-swap project
 process.env.BROWSERIFYSWAP_ROOT = dir; 
 
+process.env.BROWSERIFYSWAP_DIAGNOSTICS = 1
+
 function inspect(obj, depth) {
   console.error(require('util').inspect(obj, false, depth || 5, true));
 }

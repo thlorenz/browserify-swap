@@ -8,14 +8,13 @@ var through      =  require('through2')
 
 var root = process.env.BROWSERIFYSWAP_ROOT || process.cwd();
 
-// viralify needs to only run once, instead of for every file and it needs to happen before any files are transformed.
-// So whenever this transform is found in the root package, browserify will load it, which makes it
-// inject itself into all dependencies, and thus gets called for all of these as well.
-debug('viralifying', root);
-try { 
-  viralify.sync(root, 'browserify-swap', true);
-} catch (err) {
-  debug(err.stack);
+function viralifyDeps(packages) {
+  debug.inspect({ action: 'viralify', root: root, packages: packages });
+  try { 
+    viralify.sync(root, packages, 'browserify-swap', true);
+  } catch (err) {
+    debug(err.stack);
+  }
 }
 
 function requireSwap(swapFileName) {
@@ -88,12 +87,16 @@ function browserifySwap(file) {
 
     // we should only get here the very first time that this transform is invoked
     resolveSwaps(root, function (err, config) {
+      if (config && config.packages) viralifyDeps(config.packages);
+      var swaps = config && config.swaps;
+
       // signal with -1 that we already tried to resolve a swap config but didn't find any
-      cachedConfig = config || -1;
+      cachedConfig = swaps || -1;
+
       if (err) return cb(err);
 
-      debug.inspect({ swaps: config, env: env });
-      swapFile = swap(config, env, file);
+      debug.inspect({ swaps: swaps, env: env });
+      swapFile = swap(swaps, env, file);
       debug.inspect({ file: file, swapFile: swapFile });
 
       var src = swapFile ? requireSwap(swapFile) : data;
@@ -101,4 +104,14 @@ function browserifySwap(file) {
       cb();
     });
   }
+}
+
+// Test
+function inspect(obj, depth) {
+  console.error(require('util').inspect(obj, false, depth || 5, true));
+}
+
+if (!module.parent && typeof window === 'undefined') {
+  var pack = require('./test/resolve-swap/package.json');
+  inspect(pack);
 }
