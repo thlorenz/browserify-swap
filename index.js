@@ -10,7 +10,7 @@ var root = process.env.BROWSERIFYSWAP_ROOT || process.cwd();
 
 function viralifyDeps(packages) {
   debug.inspect({ action: 'viralify', root: root, packages: packages });
-  try { 
+  try {
     viralify.sync(root, packages, 'browserify-swap', true);
   } catch (err) {
     debug(err.stack);
@@ -29,7 +29,7 @@ function swap(config, env, file) {
   if (!swaps) return;
 
   var matches = Object.keys(swaps)
-    .filter(function (k) { 
+    .filter(function (k) {
       // Remove leading and trailing '/' since creating a RegExp will add those anyhow.
       // We want to support the /../ format as well just a simple string without the /s.
       // We will only document the format without the '/'.
@@ -43,14 +43,14 @@ function swap(config, env, file) {
   return matches[0];
 }
 
-var go = module.exports = 
+var go = module.exports =
 
 /**
  * Looks up browserify_swap configuratios specified for the given file in the environment specified via `BROWSERIFYSWAP_ENV`.
  *
  * If found the file content is replaced with a require statement to the file to swap in for the original.
  * Otherwise the file's content is just piped through.
- * 
+ *
  * @name browserifySwap
  * @function
  * @param {String} file full path to file being transformed
@@ -75,11 +75,12 @@ function browserifySwap(file) {
 
   function write(d, enc, cb) { data += d; cb(); }
   function end(cb) {
-    /*jshint validthis:true */ 
+    /*jshint validthis:true */
     var self = this;
 
     // if config was cached we already resolved the swapFile if we got here
     if (swapFile) {
+      swapFile = swapFile.replace(/\\/g, '/');
       debug.inspect({ file: file, swapFile: swapFile });
       self.push(requireSwap(swapFile));
       return cb();
@@ -99,7 +100,7 @@ function browserifySwap(file) {
       swapFile = swap(swaps, env, file);
       debug.inspect({ file: file, swapFile: swapFile });
 
-      var src = swapFile ? requireSwap(swapFile) : data;
+      var src = swapFile ? requireSwap(swapFile.replace(/\\/g, '/')) : data;
       self.push(src);
       cb();
     });
