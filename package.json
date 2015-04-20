@@ -1,6 +1,6 @@
 {
   "name": "browserify-swap",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A transform that swaps out modules according to a config in your package.json selected via an environment variable.",
   "main": "index.js",
   "scripts": {
