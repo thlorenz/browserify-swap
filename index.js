@@ -57,7 +57,7 @@ var go = module.exports =
  * @return {TransformStream} transform stream into which `browserify` will pipe the original content of the file
  */
 function browserifySwap(file) {
-  var env = process.env.BROWSERIFYSWAP_ENV
+  var env = process.env.BROWSERIFYSWAP_ENV || 'all'
     , data = ''
     , swapFile;
 
